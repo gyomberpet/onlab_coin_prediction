@@ -1,0 +1,37 @@
+Alap terv:
+	- kripto valuták lekérés -> megjelenítés listázva (alap adatok) egymás alá
+	- kripto valutára kattintva -> részletes megjelenítés, grafikon
+	- demó mód -> korlátlan virtuális pénz hozzáadható, tesztelhető/szimulálható -> eredmény megjelenítése, részletes áttekintés
+	- egy egyszerű, működő algoritmus -> múlt alapján következtetni képes az adott kripto árfolyamából
+	- alg futtatása -> rélszletes nézetben terv készítése (frekvencia, kezdő tőke, vizsgálandó időszak)
+	- egy tőzsde használata -> esetleg sima kripto api ??? (nem lehet kresekedni, de biztonságos)
+	- egy felhasználó -> autentikáció ugyanúgy szükséges
+
+Extrák: 
+	- több tőzsde bekapcsolása -> összehasonlítás, különbség figyelése, pénz mozgatása
+	- több felhasználó -> autentikáció
+	- demó mód és pro mód -> demóban kamu pénz tesztelésre / proban valós pénzzel kereskedés, real-time - BIZTONSÁG?
+	- több algoritmus -> optimális kiválasztása, használata
+	- egyéb kiegészítések pl.: biztonsági küszöb megadása, automatikus krpto kiválasztás, automatikus pénz mozgatás, százalékos profit félretétel
+
+--------------------------------------------------------------------------------------------------------------------
+DB séma:
+	
+	Users - tábla:			// 1, TestUser, Test1234
+	(id, UserName, Password)
+
+	Coins - tábla:			// 2, Bitcoin, BTC
+	(id, Név, Code)			
+
+	Prices - tábla:			// 3, 2, 2021/02/03 12:00, 40000	
+	(id, CoinID, Date, Price)
+	
+	Results -tábla:			// 4, 2, 2017/04/15 17:20, 2020/07/11 03:13, 2021/02/19 12:00, 0.023%
+	(id, CoinID, LearnStart, LearnEnd, SimulateEnd, Profit)
+	
+	ResultDetails - tábla:		// 5, 4, 3, 10, 990
+	(id, ResultID, PriceID, Buy, Balance)
+	
+
+
+--------------------------------------------------------------------------------------------------------------------
