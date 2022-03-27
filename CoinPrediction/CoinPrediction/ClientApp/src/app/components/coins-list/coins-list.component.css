@@ -1,3 +1,44 @@
 table {
   width: 100%;
 }
+
+img {
+    height: 40px;
+    padding: 5px;
+}
+
+.positive {
+  color: #57bd0f;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.negative {
+  color: orangered;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.coin-name {
+  font-weight:600;
+  width: 150px;
+}
+
+.coin-symbol {
+  font-weight: 300;
+}
+
+.header-align-right {
+  text-align: right;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+.align-right {
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.header-align-right.cdk-column-7d.mat-column-7d {
+  padding-right: 34px;
+}

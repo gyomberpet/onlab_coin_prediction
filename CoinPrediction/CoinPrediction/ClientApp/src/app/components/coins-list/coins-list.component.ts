@@ -10,13 +10,14 @@ import { CoinGeckoService } from '../../../services/coin-gecko.service';
 export class CoinsListComponent implements OnInit {
 
   coins: ICoinMarket[] = [];
-  displayedColumns: string[] = ['rank', 'name', 'price'];
+  displayedColumns: string[] = ['rank', 'image', 'name', 'symbol', 'price', '1h', '24h', '7d'];
+  selectedCurrencyType: CurrencyType = CurrencyType.USD;
 
   constructor(private coinGeckoService: CoinGeckoService) { }
 
 
   ngOnInit() {
-    this.getCoins("huf");
+    this.getCoins(this.selectedCurrencyType);
   }
 
   private getCoins(currency: string) {
@@ -27,4 +28,9 @@ export class CoinsListComponent implements OnInit {
     }, error => console.log(error));
   }
 
+}
+
+enum CurrencyType {
+  HUF = "huf",
+  USD = "usd"
 }

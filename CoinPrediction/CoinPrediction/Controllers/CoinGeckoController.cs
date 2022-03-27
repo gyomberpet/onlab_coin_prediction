@@ -34,7 +34,8 @@ namespace CoinPrediction.Controllers
         [Route("coinMarkets/{currency}")]
         public async Task<ActionResult<List<CoinMarkets>>> GetMarkets(string currency)
         {
-            var result = await _client.CoinsClient.GetCoinMarkets(currency);
+            var result = await _client.CoinsClient.GetCoinMarkets(currency, new string[] { }, null, null, null, false,
+                "1h,24h,7d,14d,30d,200d,1y", "");
             if (result == null)
                 return NotFound();
             return Ok(result);
