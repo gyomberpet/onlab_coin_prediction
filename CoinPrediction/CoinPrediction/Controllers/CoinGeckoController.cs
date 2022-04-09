@@ -31,7 +31,18 @@ namespace CoinPrediction.Controllers
         }
 
         [HttpGet]
-        [Route("coinMarkets/{currency}")]
+        [Route("coin/{id}/{currency}")]
+        public async Task<ActionResult<CoinMarkets>> GetCoin(string id, string currency)
+        {
+            var response = await _client.CoinsClient.GetCoinMarkets(currency, new[] { id }, null, null, null, false, "1h", "");
+            var result = response[0];
+            if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("coinmarkets/{currency}")]
         public async Task<ActionResult<List<CoinMarkets>>> GetMarkets(string currency)
         {
             var result = await _client.CoinsClient.GetCoinMarkets(currency, new string[] { }, null, null, null, false,
@@ -41,7 +52,17 @@ namespace CoinPrediction.Controllers
             return Ok(result);
         }
 
-        
+        [HttpGet]
+        [Route("marketchart/{id}/{currency}/{days}/{interval}")]
+        public async Task<ActionResult<MarketChartById>> GetMarketChart(string id, string currency, string days, string interval)
+        {
+            var result = await _client.CoinsClient.GetMarketChartsByCoinId(id, currency, days, interval);
+            if(result == null)
+                return NotFound();
+            return Ok(result);
+        }
+
+
         // GET api/<CoinsController>/5
         [HttpGet("{id}")]
         public string Get(int id)

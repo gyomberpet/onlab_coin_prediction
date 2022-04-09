@@ -3,8 +3,8 @@ table {
 }
 
 img {
-    height: 40px;
-    padding: 5px;
+  height: 40px;
+  padding: 5px;
 }
 
 .positive {
@@ -20,7 +20,7 @@ img {
 }
 
 .coin-name {
-  font-weight:600;
+  font-weight: 600;
   width: 150px;
 }
 
@@ -41,4 +41,9 @@ img {
 
 .header-align-right.cdk-column-7d.mat-column-7d {
   padding-right: 34px;
+}
+
+.mat-row:hover {
+  background-color: #eeeeee;
+  cursor: pointer;
 }

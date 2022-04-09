@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ICoinMarket } from '../../../models/CoinMarket';
+import { Currency } from '../../../models/enums/currency';
 import { CoinGeckoService } from '../../../services/coin-gecko.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class CoinsListComponent implements OnInit {
 
   coins: ICoinMarket[] = [];
   displayedColumns: string[] = ['rank', 'image', 'name', 'symbol', 'price', '1h', '24h', '7d'];
-  selectedCurrencyType: CurrencyType = CurrencyType.USD;
+  selectedCurrencyType: Currency = Currency.USD;
 
   constructor(private coinGeckoService: CoinGeckoService) { }
 
@@ -23,14 +24,8 @@ export class CoinsListComponent implements OnInit {
   private getCoins(currency: string) {
     this.coinGeckoService.getMarkets(currency).subscribe(result => {
       this.coins = result;
-      console.log(this.coins);
-
     }, error => console.log(error));
   }
 
 }
 
-enum CurrencyType {
-  HUF = "huf",
-  USD = "usd"
-}

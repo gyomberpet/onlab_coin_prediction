@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICoinMarket } from '../models/CoinMarket';
+import { IMarketChart } from '../models/MarketChart';
 import { IPing } from '../models/Ping';
 
 @Injectable({
@@ -19,7 +20,15 @@ export class CoinGeckoService {
     return this.httpClient.get<IPing>(`${this.baseUrl}api/coingecko/ping`);
   }
 
+  public getCoin(id: string, currency: string): Observable<ICoinMarket> {
+    return this.httpClient.get<ICoinMarket>(`${this.baseUrl}api/coingecko/coin/${id}/${currency}`);
+  }
+
   public getMarkets(currency: string): Observable<ICoinMarket[]> {
-    return this.httpClient.get<ICoinMarket[]>(`${this.baseUrl}api/coingecko/coinMarkets/${currency}`);
+    return this.httpClient.get<ICoinMarket[]>(`${this.baseUrl}api/coingecko/coinmarkets/${currency}`);
+  }
+
+  public getMarketChart(id: string, currency: string, days: string, interval: string): Observable<IMarketChart> {
+    return this.httpClient.get<IMarketChart>(`${this.baseUrl}api/coingecko/marketchart/${id}/${currency}/${days}/${interval}`);
   }
 }
