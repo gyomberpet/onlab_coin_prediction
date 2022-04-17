@@ -37,8 +37,7 @@ export class CoinChartComponent implements OnChanges {
     var minPrice = Math.min(...prices);
     this.yScaleMax = maxPrice + (maxPrice - minPrice) * 0.15;
     this.yScaleMin = minPrice - (maxPrice - minPrice) * 0.25;
-    console.log(this.yScaleMin);
-    console.log(this.yScaleMax);
+    console.log(this.data);
   }
 
   onSelect(data: any): void {
