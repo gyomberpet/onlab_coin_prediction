@@ -23,6 +23,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from "@angular/material/dialog";
 import { SimulationEditComponent } from './components/simulation-edit/simulation-edit.component';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+
+
 
 
 @NgModule({
@@ -50,6 +57,12 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSliderModule,
+    MatCardModule,
+    MatSelectModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
