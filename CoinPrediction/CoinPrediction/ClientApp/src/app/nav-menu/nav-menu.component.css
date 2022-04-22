@@ -20,3 +20,12 @@ html {
 img {
     height:30px;
 }
+
+.balance {
+  display:flex;
+  align-items: center;
+}
+p {
+  font-size:larger;
+  margin-bottom: 5px;
+}

@@ -1,0 +1,12 @@
+.info {
+  font-weight: 300;
+  font-size: smaller;
+}
+
+p {
+    font-weight:600;
+}
+
+.nav-item {
+  align-self:start;
+}

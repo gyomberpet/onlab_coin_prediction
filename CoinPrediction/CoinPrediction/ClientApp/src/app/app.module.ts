@@ -28,7 +28,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
-
+import { MatStepperModule } from '@angular/material/stepper';
 
 
 
@@ -63,6 +63,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatCardModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatStepperModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
