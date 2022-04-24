@@ -12,7 +12,7 @@ namespace CoinPrediction.Controllers
     [ApiController]
     public class CoinGeckoController : ControllerBase
     {
-        const string apiUrl = "https://api.coingecko.com/api/v3";
+        // const string apiUrl = "https://api.coingecko.com/api/v3";
         private ICoinGeckoClient _client;
 
         public CoinGeckoController() 
@@ -62,30 +62,5 @@ namespace CoinPrediction.Controllers
             return Ok(result);
         }
 
-
-        // GET api/<CoinsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<CoinsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<CoinsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CoinsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

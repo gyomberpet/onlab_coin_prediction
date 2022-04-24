@@ -1,16 +1,28 @@
+using CoinPrediction.DAL;
+using CoinPrediction.DAL.AutoMapper;
+using CoinPrediction.DAL.EfDbContext;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<CryptoMarketContext>(optinBuilder =>
+    optinBuilder.UseCosmos(builder.Configuration.GetConnectionString("CosmosDbConnection"),
+        builder.Configuration.GetValue<string>("DbName"))
+);
+builder.Services.AddAutoMapper(typeof(CryptoMarketProfile));
+builder.Services.AddScoped<ICoinRepository, CoinRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
