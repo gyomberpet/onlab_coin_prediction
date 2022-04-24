@@ -79,7 +79,7 @@ namespace CoinPrediction.DAL
         private List<DbUserAsset> CheckCoinsExisting(User user)
         {
             var walletCoins = user.Wallet.Select(x => x.Coin?.CoinId);
-            var dbCoins = context.Coins.Where(c => walletCoins.Contains(c.CoinId));
+            var dbCoins = context.Coins.Where(c => walletCoins.Contains(c.CoinId)).ToList();
 
             var newWallet = new List<DbUserAsset>();
             int i = 0;

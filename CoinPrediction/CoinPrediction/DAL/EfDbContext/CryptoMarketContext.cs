@@ -18,6 +18,9 @@ namespace CoinPrediction.DAL.EfDbContext
             modelBuilder.Entity<DbCoin>()
                 .ToContainer("Coins")
                 .HasPartitionKey(c => c.Id);
+            modelBuilder.Entity<DbCoin>()
+                .HasIndex(u => u.CoinId)
+                .IsUnique();
 
             modelBuilder.Entity<DbUser>()
                 .ToContainer("Users")
