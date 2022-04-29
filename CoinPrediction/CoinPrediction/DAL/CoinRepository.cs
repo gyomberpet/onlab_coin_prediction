@@ -19,7 +19,7 @@ namespace CoinPrediction.DAL
             this.context.Database.EnsureCreated();
         }
 
-        public bool DeleteCoin(Guid id)
+        public bool DeleteCoin(int id)
         {
             var dbCoinToDelete = context.Coins.SingleOrDefault(c => c.Id == id);
 
@@ -32,7 +32,7 @@ namespace CoinPrediction.DAL
             return true;
         }
 
-        public Coin? GetCoinByID(Guid id)
+        public Coin GetCoinByID(int id)
         {
             var dbCoin = context.Coins .SingleOrDefault(c => c.Id == id);
 
@@ -50,6 +50,10 @@ namespace CoinPrediction.DAL
 
         public Coin InsertCoin(Coin coin)
         {
+            var coinIds = GetCoins().Select(c=>c.CoinId);
+            if (coinIds.Contains(coin.CoinId))
+                return null;
+
             var dbCoin = mapper.Map<DbCoin>(coin);
             context.Coins.Add(dbCoin);
             context.SaveChanges();
@@ -57,12 +61,16 @@ namespace CoinPrediction.DAL
             return mapper.Map<Coin>(dbCoin);
         }
 
-        public Coin? UpdateCoin(Coin coin)
-        {
+        public Coin UpdateCoin(Coin coin)
+        {   
             var dbCoinToUpdate = context.Coins.SingleOrDefault(c => c.Id == coin.Id);
 
             if(dbCoinToUpdate == null)
                 return null;
+
+            var coinIds = GetCoins().Select(c => c.CoinId);
+            if (coinIds.Contains(coin.CoinId) && coin.CoinId != dbCoinToUpdate.CoinId)
+                return coin;
 
             dbCoinToUpdate.CoinId = coin.CoinId;
             dbCoinToUpdate.Name = coin.Name;

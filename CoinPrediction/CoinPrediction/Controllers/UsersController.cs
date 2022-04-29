@@ -23,7 +23,7 @@ namespace CoinPrediction.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<User> Get(Guid id)
+        public ActionResult<User> Get(int id)
         {
             var users = userRepository.GetUserByID(id);
             return Ok(users);
@@ -43,19 +43,30 @@ namespace CoinPrediction.Controllers
             }
         }
 
-        [HttpPut]
-        public ActionResult<User> Put([FromBody] User user)
+        [HttpPut("{id}")]
+        public ActionResult<User> AddAssetToUser(int id, [FromBody] UserAsset asset) 
         {
-            var updated = userRepository.UpdateUser(user);
+            var user = userRepository.AddAssetToUser(id, asset);
 
-            if (updated == null)
+            if (user == null)
                 return NotFound();
 
-            return Ok(updated);
+            return Ok(user);
         }
 
+        //[HttpPut]
+        //public ActionResult<User> Put([FromBody] User user)
+        //{
+        //    var updated = userRepository.UpdateUser(user);
+
+        //    if (updated == null)
+        //        return NotFound();
+
+        //    return Ok(updated);
+        //}
+
         [HttpDelete("{id}")]
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete(int id)
         {
             var isSuccess = userRepository.DeleteUser(id);
 

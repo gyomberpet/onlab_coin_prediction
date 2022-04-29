@@ -23,7 +23,7 @@ namespace CoinPrediction.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Coin> Get(Guid id)
+        public ActionResult<Coin> Get(int id)
         {
             var coins = coinRepository.GetCoinByID(id);
             return Ok(coins);
@@ -34,7 +34,10 @@ namespace CoinPrediction.Controllers
         {
             try
             {
-                Coin created = coinRepository.InsertCoin(coin);
+                Coin? created = coinRepository.InsertCoin(coin);
+                if (created == null)
+                    return BadRequest();
+
                 return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
             }
             catch (ArgumentException ex)
@@ -51,11 +54,14 @@ namespace CoinPrediction.Controllers
             if(updated == null)
                 return NotFound();
 
+            if (updated == coin)
+                return BadRequest();
+
             return Ok(updated);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(Guid id) 
+        public ActionResult Delete(int id) 
         {
             var isSuccess = coinRepository.DeleteCoin(id);
 

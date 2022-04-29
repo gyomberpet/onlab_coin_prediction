@@ -10,6 +10,9 @@ import { INgxChartData, ITimestampValuePair } from '../../../models/NgxChartData
 import { CoinGeckoService } from '../../../services/coin-gecko.service';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { SimulationEditComponent } from '../simulation-edit/simulation-edit.component';
+import { CoinService } from '../../../services/coin.service';
+import { UserService } from '../../../services/user.service';
+import { IUser } from '../../../models/user';
 
 @Component({
   selector: 'app-coin',
@@ -22,7 +25,8 @@ export class CoinComponent implements OnInit {
   coin: ICoinMarket = {
     id: '',
     symbol: '',
-    name: ''
+    name: '',
+    currentPrice: 0
   };
   dataSource: INgxChartData[];
   coinMarketChart: IMarketChart;
@@ -30,14 +34,14 @@ export class CoinComponent implements OnInit {
   interval: string = Interval.DAYS_30;
 
   constructor(private coinGeckoService: CoinGeckoService, private route: ActivatedRoute,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog, private userService: UserService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
     this.coinGeckoService.getCoin(this.id, Currency.USD).subscribe(result => {
       this.coin = result;
       this.updateChart(this.interval);
-    }, error => console.log(error));    
+    }, error => console.log(error));
   }
 
   private convertIMarketChartToINgxChartData(): INgxChartData[]
@@ -125,4 +129,8 @@ export class CoinComponent implements OnInit {
   close() {
    // this.dialogRef.close();
   }
+}
+
+function IUser(arg0: any, IUser: any) {
+    throw new Error('Function not implemented.');
 }

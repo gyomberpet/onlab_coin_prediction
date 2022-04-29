@@ -4,9 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
+import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
+import { HomeComponent } from './components/home/home.component';
 import { MatTableModule } from '@angular/material/table';
 import { CoinsListComponent } from './components/coins-list/coins-list.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,6 +28,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 
@@ -37,7 +37,6 @@ import { MatStepperModule } from '@angular/material/stepper';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
     CoinsListComponent,
     AccountComponent,
     CoinComponent,
@@ -66,13 +65,12 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatStepperModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
       { path: 'coins-list', component: CoinsListComponent },
       { path: 'coin/:id', component: CoinComponent },
       { path: 'account', component: AccountComponent },
     ])
   ],
-  providers: [],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

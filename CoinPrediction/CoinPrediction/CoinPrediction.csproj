@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
     <SpaProxyServerUrl>https://localhost:44447</SpaProxyServerUrl>
@@ -34,24 +33,31 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\models\Coin.ts" />
     <None Remove="ClientApp\src\models\enums\currency.ts" />
     <None Remove="ClientApp\src\models\enums\frequency.ts" />
     <None Remove="ClientApp\src\models\enums\interval.ts" />
     <None Remove="ClientApp\src\models\MarketChart.ts" />
     <None Remove="ClientApp\src\models\NgxChartData.ts" />
+    <None Remove="ClientApp\src\models\user.ts" />
+    <None Remove="ClientApp\src\models\UserAsset.ts" />
+    <None Remove="ClientApp\src\services\user.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ClientApp\src\assets\images\" />
-    <Folder Include="ClientApp\src\services\" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\models\Coin.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\enums\Currency.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\enums\Frequency.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\enums\Interval.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\MarketChart.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\NgxChartData.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\User.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\UserAsset.ts" />
+    <TypeScriptCompile Include="ClientApp\src\services\user.service.ts" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

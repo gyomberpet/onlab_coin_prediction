@@ -5,9 +5,9 @@ namespace CoinPrediction.DAL
     public interface ICoinRepository: IDisposable
     {
         IEnumerable<Coin> GetCoins();
-        Coin? GetCoinByID(Guid id);
+        Coin GetCoinByID(int id);
         Coin InsertCoin(Coin coin);
-        bool DeleteCoin(Guid id);
-        Coin? UpdateCoin(Coin coin);
+        bool DeleteCoin(int id);
+        Coin UpdateCoin(Coin coin);
     }
 }

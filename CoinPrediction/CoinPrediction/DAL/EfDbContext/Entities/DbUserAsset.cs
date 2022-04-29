@@ -2,7 +2,9 @@
 {
     public class DbUserAsset 
     {
-        public DbCoin? Coin { get; set; }
+        public int Id { get; set; } 
+        public DbCoin Coin { get; set; }
         public double Amount { get; set; }
+        public  DbUser User { get; set; }
     }
 }

@@ -5,12 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<CryptoMarketContext>(optinBuilder =>
-    optinBuilder.UseCosmos(builder.Configuration.GetConnectionString("CosmosDbConnection"),
-        builder.Configuration.GetValue<string>("DbName"))
-);
+
+//builder.Services.AddDbContext<CryptoMarketContext>(optinBuilder =>
+//    optinBuilder.UseCosmos(builder.Configuration.GetConnectionString("CosmosDbConnection"),
+//        builder.Configuration.GetValue<string>("DbName"))
+//);
+builder.Services.AddDbContext<CryptoMarketContext>(
+    o => o.UseSqlServer(builder.Configuration.GetConnectionString("MsSQLConnection")));
+
 builder.Services.AddAutoMapper(typeof(CryptoMarketProfile));
 builder.Services.AddScoped<ICoinRepository, CoinRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

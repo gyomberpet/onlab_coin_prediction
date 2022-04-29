@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CoinPrediction.DAL.EfDbContext;
 using CoinPrediction.DAL.EfDbContext.Entities;
 using CoinPrediction.Model;
@@ -19,7 +20,7 @@ namespace CoinPrediction.DAL
             this.context.Database.EnsureCreated();          
         }
 
-        public bool DeleteUser(Guid id)
+        public bool DeleteUser(int id)
         {
             var dbUserToDelete = context.Users.SingleOrDefault(u => u.Id == id);
 
@@ -32,9 +33,12 @@ namespace CoinPrediction.DAL
             return true;
         }
 
-        public User? GetUserByID(Guid id)
+        public User GetUserByID(int id)
         {
-            var dbUser = context.Users.SingleOrDefault(u => u.Id == id);                            
+            var dbUser = context.Users
+                .Include(u => u.UserAssets)
+                    .ThenInclude(a => a.Coin)
+                .SingleOrDefault(u => u.Id == id);  
 
             return mapper.Map<User>(dbUser);
         }
@@ -42,7 +46,7 @@ namespace CoinPrediction.DAL
         public IEnumerable<User> GetUsers()
         {
             var users = context.Users
-                .Select(mapper.Map<User>)
+                .ProjectTo<User>(mapper.ConfigurationProvider)
                 .AsEnumerable();
 
             return users;
@@ -51,7 +55,7 @@ namespace CoinPrediction.DAL
         public User InsertUser(User user)
         {
             var dbUser = mapper.Map<DbUser>(user);
-            dbUser.Wallet = CheckCoinsExisting(user);
+            dbUser.UserAssets = null;
 
             context.Users.Add(dbUser);
             context.SaveChanges();
@@ -59,41 +63,75 @@ namespace CoinPrediction.DAL
             return mapper.Map<User>(dbUser);
         }
 
-        public User? UpdateUser(User user)
+        public User AddAssetToUser(int id, UserAsset asset) 
         {
-            var dbUserToUpdate = context.Users.SingleOrDefault(u => u.Id == user.Id);
+            var dbUser = context.Users.SingleOrDefault(u => u.Id == id);
 
-            if (dbUserToUpdate == null)
+            if (dbUser == null) 
                 return null;
 
-            dbUserToUpdate.Wallet = CheckCoinsExisting(user);
+            var dbCoin = context.Coins.SingleOrDefault(c => c.CoinId == asset.Coin.CoinId);
 
-            dbUserToUpdate.Username = user.Username;
-            dbUserToUpdate.Password = user.Password;
+            if (dbCoin == null)
+                return null;
+
+            var dbAsset = context.UserAssets.SingleOrDefault(a => a.Coin.CoinId == asset.Coin.CoinId);
+
+            if (dbAsset == null)
+            {
+                dbAsset = new DbUserAsset()
+                {
+                    Coin = dbCoin,
+                    Amount = asset.Amount
+                };
+
+                dbUser.UserAssets.Add(dbAsset);
+                context.SaveChanges();
+
+                return mapper.Map<User>(dbUser);
+            }
+                    
+            dbAsset.Amount += asset.Amount;
             context.SaveChanges();
 
-            return mapper.Map<User>(dbUserToUpdate);
-
+            return mapper.Map<User>(dbUser);
         }
 
-        private List<DbUserAsset> CheckCoinsExisting(User user)
-        {
-            var walletCoins = user.Wallet.Select(x => x.Coin?.CoinId);
-            var dbCoins = context.Coins.Where(c => walletCoins.Contains(c.CoinId)).ToList();
+        //public User? UpdateUser(User user)
+        //{
+        //    var dbUserToUpdate = context.Users.SingleOrDefault(u => u.Id == user.Id);
 
-            var newWallet = new List<DbUserAsset>();
-            int i = 0;
-            foreach (var coin in dbCoins)
-            {
-                newWallet.Add(new DbUserAsset()
-                {
-                    Coin = coin,
-                    Amount = user.Wallet.Select(x => x.Amount).ToArray()[i++],
-                });
-            }
+        //    if (dbUserToUpdate == null)
+        //        return null;
 
-            return newWallet;
-        }
+        //    dbUserToUpdate.UserAssets = CheckCoinsExisting(user);
+
+        //    dbUserToUpdate.Username = user.Username;
+        //    dbUserToUpdate.Password = user.Password;
+        //    context.SaveChanges();
+
+        //    return mapper.Map<User>(dbUserToUpdate);
+
+        //}
+
+        //private List<DbUserAsset> CheckCoinsExisting(User user)
+        //{
+        //    var coinIds = user.UserAssets.Select(x => x.Coin?.CoinId);
+        //    var dbCoins = context.Coins.Where(c => coinIds.Contains(c.CoinId)).ToList();
+
+        //    var userAssets = new List<DbUserAsset>();
+        //    int i = 0;
+        //    foreach (var coin in dbCoins)
+        //    {
+        //        userAssets.Add(new DbUserAsset()
+        //        {
+        //            Coin = coin,
+        //            Amount = user.UserAssets.Select(x => x.Amount).ToArray()[i++],
+        //        });
+        //    }
+
+        //    return userAssets;
+        //}
 
         #region "Dispose"
 

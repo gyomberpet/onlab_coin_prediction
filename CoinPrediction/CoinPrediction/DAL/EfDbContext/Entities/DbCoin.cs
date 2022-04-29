@@ -2,12 +2,11 @@
 {
     public class DbCoin
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
+        public string CoinId { get; set; }
+        public string Name { get; set; }
+        public string Symbol { get; set; }
+        public List<DbUserAsset> UserAssets { get; set; } = new List<DbUserAsset>();
 
-        public string? CoinId { get; set; }
-
-        public string? Name { get; set; }
-
-        public string? Symbol { get; set; } 
     }
 }

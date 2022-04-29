@@ -2,19 +2,9 @@
 {
     public class User
     {
-        public User(Guid id, string username, string password, List<UserAsset> wallet)
-        {
-            Id = id;
-            Username = username;
-            Password = password;
-            Wallet = wallet;
-        }
-
-        public Guid Id { get; }
-        public string Username { get; }
-        public string Password { get; }
-        public List<UserAsset> Wallet { get; }
+        public int Id { get; init; }
+        public string Username { get; init; }
+        public string Password { get; init; }
+        public List<UserAsset> UserAssets { get; init; } = new List<UserAsset>();
     }
-
-   
 }

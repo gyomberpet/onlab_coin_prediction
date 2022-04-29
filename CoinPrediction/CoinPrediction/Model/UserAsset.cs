@@ -2,14 +2,8 @@
 {
     public class UserAsset
     {
-        public UserAsset(Coin coin, double amount)
-        {
-            Coin = coin;
-            Amount = amount;
-        }
-
-        public Coin Coin { get; }
-        public double Amount { get; }
-
+        public int Id { get; init; }
+        public Coin Coin { get; init; }
+        public double Amount { get; init; }
     }
 }

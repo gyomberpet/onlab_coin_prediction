@@ -41,11 +41,11 @@ namespace CoinPrediction.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpPut]
         [Route("coinmarkets/{currency}")]
-        public async Task<ActionResult<List<CoinMarkets>>> GetMarkets(string currency)
-        {
-            var result = await _client.CoinsClient.GetCoinMarkets(currency, new string[] { }, null, null, null, false,
+        public async Task<ActionResult<List<CoinMarkets>>> GetMarkets(string currency, [FromBody] string[] coins)
+        {   
+            var result = await _client.CoinsClient.GetCoinMarkets(currency, coins ?? new string[] { }, null, null, null, false,
                 "1h,24h,7d,14d,30d,200d,1y", "");
             if (result == null)
                 return NotFound();
