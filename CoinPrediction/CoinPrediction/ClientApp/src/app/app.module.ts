@@ -29,6 +29,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -63,6 +64,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatSelectModule,
     ReactiveFormsModule,
     MatStepperModule,
+    MatSortModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'coins-list', component: CoinsListComponent },

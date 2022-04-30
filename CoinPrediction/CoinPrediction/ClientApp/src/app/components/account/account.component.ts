@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ICoinMarket } from '../../../models/CoinMarket';
 import { Currency } from '../../../models/enums/currency';
 import { IUser } from '../../../models/user';
+import { BalanceService } from '../../../services/balance.service';
 import { CoinGeckoService } from '../../../services/coin-gecko.service';
 import { UserService } from '../../../services/user.service';
 
@@ -23,36 +24,12 @@ export class AccountComponent implements OnInit {
   balance = 0;
 
   constructor(private fb: FormBuilder, private userService: UserService,
-    private coinGeckoService: CoinGeckoService) { }
+    private coinGeckoService: CoinGeckoService, private balanceService: BalanceService) { }
 
   ngOnInit() {
     this.firstFormGroup = this.fb.group({
       inputMoney: ['', Validators.required],
     });
-    this.userService.getUserById(this.userId).subscribe(result => {
-      this.user = result;
-      var coinIds = this.user.userAssets.map(a => a.coin.coinId);
-      this.coinGeckoService.getMarkets(Currency.USD, coinIds).subscribe(result => {
-        this.calculateBalance(result);
-      }), error => console.log(error);
-    }), error => console.log(error);
-  }
-
-  calculateBalance(markets: ICoinMarket[]) {  
-    this.user.userAssets.forEach(asset => {
-      var coin: ICoinMarket | undefined = markets.find(m => m.id == "bitcoin");
-      if (!coin) {
-        coin = {
-          id: '',
-          symbol: '',
-          name: '',
-          currentPrice: 0
-        };       
-      }
-      var price = coin.currentPrice;
-      this.balance += price * asset.amount;
-    })
-    console.log(this.balance);
   }
 
   depositConfirm(value: number) {
@@ -61,7 +38,12 @@ export class AccountComponent implements OnInit {
         coinId: "tether"
       },
       amount: value
-    }).subscribe(result => { }), error => console.log(error);
+    }).subscribe(result => {
+      this.balanceService.getBalance(1).subscribe(balance =>
+        this.balance = balance,
+        error => console.log(error)
+      );
+    }), error => console.log(error);
   }
 
   get inputMoney() {

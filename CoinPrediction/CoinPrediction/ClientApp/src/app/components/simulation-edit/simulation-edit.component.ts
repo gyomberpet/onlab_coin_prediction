@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BalanceService } from '../../../services/balance.service';
 
 @Component({
   selector: 'app-simulation-edit',
@@ -15,10 +16,12 @@ export class SimulationEditComponent implements OnInit {
     "1 hour",
     "1 minute",
   ];
+  balance = 0;
 
   constructor(private fb: FormBuilder,
     public dialogRef: MatDialogRef<SimulationEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private balanceService: BalanceService
   ) { }
 
   ngOnInit(): void {
@@ -29,8 +32,13 @@ export class SimulationEditComponent implements OnInit {
       }),
       frequency: ['', Validators.required],
       trainTestSplit: ['', [Validators.required, Validators.min(5), Validators.max(95)]],
-      inputMoney: ['', [Validators.required, Validators.min(15)]],
+      inputMoney: ['', [Validators.required, Validators.min(15), Validators.max(this.balance)]],
     });
+    this.balanceService.getBalance(1).subscribe(balance => {
+      this.balance = balance;
+      this.inputMoney.setValidators([Validators.required, Validators.min(15), Validators.max(this.balance)]);
+    }, error => console.log(error)
+    );
   }
 
   onNoClick(): void {

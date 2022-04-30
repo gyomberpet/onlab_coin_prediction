@@ -6,6 +6,9 @@
       <mat-form-field appearance="fill">
         <mat-label>USD</mat-label>
         <input matInput type="number" formControlName="inputMoney" placeholder="0" min="10" required>
+        <mat-error *ngIf="inputMoney.hasError('min') && !inputMoney.hasError('required')">
+          Min. deposite 10 USD
+        </mat-error>
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Add</button>
@@ -14,8 +17,8 @@
   </mat-step>
   <mat-step [editable]="true">
     <ng-template matStepLabel>Overview</ng-template>
-    <p>Deposit value: {{inputMoney.value}} $</p>
-    <p>You will get: {{(100-fee)/100 * inputMoney.value}} $</p>
+    <p>Deposit value: {{inputMoney.value}} USD</p>
+    <p>You will get: {{(100-fee)/100 * inputMoney.value}} USD</p>
     <p class="info">The transaction fee is {{fee}}%</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
@@ -25,7 +28,7 @@
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
     <p>Transaction completed successfully!</p>
-    <p class="info">Current balace: {{balance}} $</p>
+    <p class="info">Current balance: {{balance | number : '1.2-2'}} USD</p>
 
   </mat-step>
 </mat-stepper>

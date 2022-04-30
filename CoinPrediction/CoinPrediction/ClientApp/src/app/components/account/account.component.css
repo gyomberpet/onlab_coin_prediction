@@ -10,3 +10,7 @@ p {
 .nav-item {
   align-self:start;
 }
+
+mat-form-field {
+  margin-bottom: 10px;
+}

@@ -49,14 +49,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\models\Coin.ts" />
-    <TypeScriptCompile Include="ClientApp\src\models\enums\Currency.ts" />
-    <TypeScriptCompile Include="ClientApp\src\models\enums\Frequency.ts" />
-    <TypeScriptCompile Include="ClientApp\src\models\enums\Interval.ts" />
-    <TypeScriptCompile Include="ClientApp\src\models\MarketChart.ts" />
-    <TypeScriptCompile Include="ClientApp\src\models\NgxChartData.ts" />
-    <TypeScriptCompile Include="ClientApp\src\models\User.ts" />
-    <TypeScriptCompile Include="ClientApp\src\models\UserAsset.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\coin.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\enums\currency.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\enums\frequency.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\enums\interval.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\marketChart.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\ngxChartData.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\user.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\userAsset.ts" />
     <TypeScriptCompile Include="ClientApp\src\services\user.service.ts" />
   </ItemGroup>
 

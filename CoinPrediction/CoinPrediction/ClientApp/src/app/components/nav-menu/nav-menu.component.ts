@@ -6,9 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  isExpanded = false;
 
-  balance = 100;
+  isExpanded = false;
 
   collapse() {
     this.isExpanded = false;

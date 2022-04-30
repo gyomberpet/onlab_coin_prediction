@@ -54,6 +54,7 @@
         <mat-form-field appearance="fill" [style.width.px]=150>
           <mat-label>Input money</mat-label>
           <input matInput type="number" step="10" formControlName="inputMoney" class="money-amount-input" min="0">
+          <mat-hint align="start"><strong>{{balance | number : '1.2-2'}} USD</strong> </mat-hint>
         </mat-form-field>
       </div>
     </div>
