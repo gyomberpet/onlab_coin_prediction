@@ -12,11 +12,13 @@ builder.Services.AddControllersWithViews();
 //        builder.Configuration.GetValue<string>("DbName"))
 //);
 builder.Services.AddDbContext<CryptoMarketContext>(
-    o => o.UseSqlServer(builder.Configuration.GetConnectionString("MsSQLConnection")));
+    o => o.UseSqlServer(builder.Configuration.GetConnectionString("MsSQLConnection"))
+    .LogTo(Console.WriteLine, LogLevel.Information));
 
 builder.Services.AddAutoMapper(typeof(CryptoMarketProfile));
 builder.Services.AddScoped<ICoinRepository, CoinRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICoinPairRepository, CoinPairRepository>();
 
 builder.Services.AddSwaggerGen();
 

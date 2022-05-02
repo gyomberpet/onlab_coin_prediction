@@ -4,6 +4,7 @@ using CoinPrediction.DAL.EfDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoinPrediction.Migrations
 {
     [DbContext(typeof(CryptoMarketContext))]
-    partial class CryptoMarketContextModelSnapshot : ModelSnapshot
+    [Migration("20220502223100_PairBTCUSDT")]
+    partial class PairBTCUSDT
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

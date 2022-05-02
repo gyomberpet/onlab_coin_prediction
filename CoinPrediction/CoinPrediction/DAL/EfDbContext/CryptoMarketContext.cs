@@ -9,6 +9,8 @@ namespace CoinPrediction.DAL.EfDbContext
         public DbSet<DbCoin> Coins => Set<DbCoin>();
         public DbSet<DbUser> Users => Set<DbUser>();
         public DbSet<DbUserAsset> UserAssets => Set<DbUserAsset>();
+        public DbSet<DbPairHourBTCUSDT> BinanceHourBTCUSDT => Set<DbPairHourBTCUSDT>();
+        public DbSet<DbPairMinuteBTCUSDT> BinanceMinuteBTCUSDT => Set<DbPairMinuteBTCUSDT>();
 
 
         public CryptoMarketContext(DbContextOptions options)
@@ -19,6 +21,10 @@ namespace CoinPrediction.DAL.EfDbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<DbCoin>()
+                .HasIndex(e => e.CoinId)
+                .IsUnique();
 
 
             //modelBuilder.Entity<DbCoin>()             

@@ -14,6 +14,7 @@
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="CoinGeckoAsyncApi" Version="1.6.0" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
@@ -38,7 +39,8 @@
     <None Remove="ClientApp\src\models\enums\frequency.ts" />
     <None Remove="ClientApp\src\models\enums\interval.ts" />
     <None Remove="ClientApp\src\models\MarketChart.ts" />
-    <None Remove="ClientApp\src\models\NgxChartData.ts" />
+    <None Remove="ClientApp\src\models\ngxChartData.ts" />
+    <None Remove="ClientApp\src\models\pairBTCUSDT.ts" />
     <None Remove="ClientApp\src\models\user.ts" />
     <None Remove="ClientApp\src\models\UserAsset.ts" />
     <None Remove="ClientApp\src\services\user.service.ts" />
@@ -55,6 +57,7 @@
     <TypeScriptCompile Include="ClientApp\src\models\enums\interval.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\marketChart.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\ngxChartData.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\pairBTCUSDT.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\user.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\userAsset.ts" />
     <TypeScriptCompile Include="ClientApp\src\services\user.service.ts" />

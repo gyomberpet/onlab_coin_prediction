@@ -12,8 +12,6 @@ import { UserService } from "./user.service";
 })
 export class BalanceService {
 
-  private baseUrl: string;
-
   constructor(private userService: UserService, private coinGeckoService: CoinGeckoService) { }
 
   public getBalance(userId: number): Observable<number> {

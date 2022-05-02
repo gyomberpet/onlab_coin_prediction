@@ -16,8 +16,6 @@ namespace CoinPrediction.DAL
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-
-            this.context.Database.EnsureCreated();          
         }
 
         public bool DeleteUser(int id)

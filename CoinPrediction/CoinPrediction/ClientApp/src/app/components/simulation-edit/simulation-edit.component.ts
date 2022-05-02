@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Frequency } from '../../../models/enums/frequency';
 import { BalanceService } from '../../../services/balance.service';
 
 @Component({
@@ -12,11 +13,12 @@ export class SimulationEditComponent implements OnInit {
 
   form: FormGroup;
   intervals: string[] = [
-    "1 day",
     "1 hour",
     "1 minute",
   ];
   balance = 0;
+  maxDate = new Date(2022, 4, 18);
+  minDate = new Date(this.maxDate.getFullYear() - 5, 0, 1);
 
   constructor(private fb: FormBuilder,
     public dialogRef: MatDialogRef<SimulationEditComponent>,
@@ -41,8 +43,22 @@ export class SimulationEditComponent implements OnInit {
     );
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  submit(): void {
+    var frequency;
+    switch (this.frequency.value) {
+      case "1 hour": frequency = Frequency.HOURLY; break;
+      case "1 minute": frequency = Frequency.MINTUTELY; break;
+    }
+
+    var result = {
+      start: this.start.value,
+      end: this.end.value,
+      frequency: frequency,
+      trainTestSplit: this.trainTestSplit.value,
+      inputMoney: this.inputMoney.value
+    };
+
+    this.dialogRef.close(result);
   }
 
   formatLabel(value: number) {
@@ -51,6 +67,14 @@ export class SimulationEditComponent implements OnInit {
 
   get range() {
     return this.form['controls'].range as FormGroup;
+  }
+
+  get start() {
+    return this.range['controls'].start as FormControl;
+  }
+
+  get end() {
+    return this.range['controls'].end as FormControl;
   }
 
   get inputMoney() {

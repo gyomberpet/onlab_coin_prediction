@@ -4,6 +4,7 @@ using CoinPrediction.DAL.EfDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoinPrediction.Migrations
 {
     [DbContext(typeof(CryptoMarketContext))]
-    partial class CryptoMarketContextModelSnapshot : ModelSnapshot
+    [Migration("20220501103903_CoinIndex")]
+    partial class CoinIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +50,7 @@ namespace CoinPrediction.Migrations
                     b.ToTable("Coins");
                 });
 
-            modelBuilder.Entity("CoinPrediction.DAL.EfDbContext.Entities.DbPairHourBTCUSDT", b =>
+            modelBuilder.Entity("CoinPrediction.DAL.EfDbContext.Entities.DbPriceStory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,76 +58,20 @@ namespace CoinPrediction.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<double>("Close")
-                        .HasColumnType("float");
+                    b.Property<int?>("CoinId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("High")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Low")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Open")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Symbol")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TradeCount")
-                        .HasColumnType("int");
-
-                    b.Property<double>("VolumeBTC")
-                        .HasColumnType("float");
-
-                    b.Property<double>("VolumeUSDT")
+                    b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.ToTable("BinanceHourBTCUSDT");
-                });
+                    b.HasIndex("CoinId");
 
-            modelBuilder.Entity("CoinPrediction.DAL.EfDbContext.Entities.DbPairMinuteBTCUSDT", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<double>("Close")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("High")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Low")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Open")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Symbol")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TradeCount")
-                        .HasColumnType("int");
-
-                    b.Property<double>("VolumeBTC")
-                        .HasColumnType("float");
-
-                    b.Property<double>("VolumeUSDT")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BinanceMinuteBTCUSDT");
+                    b.ToTable("PriceStories");
                 });
 
             modelBuilder.Entity("CoinPrediction.DAL.EfDbContext.Entities.DbUser", b =>
@@ -173,6 +119,15 @@ namespace CoinPrediction.Migrations
                     b.ToTable("UserAssets");
                 });
 
+            modelBuilder.Entity("CoinPrediction.DAL.EfDbContext.Entities.DbPriceStory", b =>
+                {
+                    b.HasOne("CoinPrediction.DAL.EfDbContext.Entities.DbCoin", "Coin")
+                        .WithMany("PriceStories")
+                        .HasForeignKey("CoinId");
+
+                    b.Navigation("Coin");
+                });
+
             modelBuilder.Entity("CoinPrediction.DAL.EfDbContext.Entities.DbUserAsset", b =>
                 {
                     b.HasOne("CoinPrediction.DAL.EfDbContext.Entities.DbCoin", "Coin")
@@ -190,6 +145,8 @@ namespace CoinPrediction.Migrations
 
             modelBuilder.Entity("CoinPrediction.DAL.EfDbContext.Entities.DbCoin", b =>
                 {
+                    b.Navigation("PriceStories");
+
                     b.Navigation("UserAssets");
                 });
 

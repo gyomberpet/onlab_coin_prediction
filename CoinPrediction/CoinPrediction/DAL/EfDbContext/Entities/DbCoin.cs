@@ -7,6 +7,5 @@
         public string Name { get; set; }
         public string Symbol { get; set; }
         public List<DbUserAsset> UserAssets { get; set; } = new List<DbUserAsset>();
-
     }
 }

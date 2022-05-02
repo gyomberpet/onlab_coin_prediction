@@ -34,7 +34,7 @@ namespace CoinPrediction.Controllers
         {
             try
             {
-                Coin? created = coinRepository.InsertCoin(coin);
+                Coin created = coinRepository.InsertCoin(coin);
                 if (created == null)
                     return BadRequest();
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
-import { INgxChartData } from '../../../models/NgxChartData';
+import { INgxChartData } from '../../../models/ngxChartData';
 
 @Component({
   selector: 'app-coin-chart',

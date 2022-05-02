@@ -15,8 +15,6 @@ namespace CoinPrediction.DAL
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-     
-            this.context.Database.EnsureCreated();
         }
 
         public bool DeleteCoin(int id)
@@ -50,7 +48,7 @@ namespace CoinPrediction.DAL
 
         public Coin InsertCoin(Coin coin)
         {
-            var coinIds = GetCoins().Select(c=>c.CoinId);
+            var coinIds = GetCoins().Select(c => c.CoinId);
             if (coinIds.Contains(coin.CoinId))
                 return null;
 

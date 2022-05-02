@@ -3,16 +3,17 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ICoinMarket } from '../../../models/CoinMarket';
 import { Currency } from '../../../models/enums/currency';
-import { Frequency } from '../../../models/enums/Frequency';
-import { Interval } from '../../../models/enums/Interval';
+import { Frequency } from '../../../models/enums/frequency';
+import { Interval } from '../../../models/enums/interval';
 import { IMarketChart } from '../../../models/MarketChart';
-import { INgxChartData, ITimestampValuePair } from '../../../models/NgxChartData';
+import { INgxChartData, ITimestampValuePair } from '../../../models/ngxChartData';
 import { CoinGeckoService } from '../../../services/coin-gecko.service';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { SimulationEditComponent } from '../simulation-edit/simulation-edit.component';
-import { CoinService } from '../../../services/coin.service';
 import { UserService } from '../../../services/user.service';
-import { IUser } from '../../../models/user';
+import { CoinPairService } from '../../../services/coin-pair.service';
+import { IPairBTCUSDT } from '../../../models/pairBTCUSDT';
+
 
 @Component({
   selector: 'app-coin',
@@ -34,7 +35,7 @@ export class CoinComponent implements OnInit {
   interval: string = Interval.DAYS_30;
 
   constructor(private coinGeckoService: CoinGeckoService, private route: ActivatedRoute,
-    public dialog: MatDialog, private userService: UserService) { }
+    public dialog: MatDialog, private userService: UserService, private coinPairService: CoinPairService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
@@ -118,19 +119,18 @@ export class CoinComponent implements OnInit {
     const dialogRef = this.dialog.open(SimulationEditComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+      this.runSimulation(result);
+    },error => console.log(error))
   }
 
-  save() {
-    //this.dialogRef.close();
-  }
+  runSimulation(params) {
+    var endStamp = (params.end as Date).getTime();
+    var startStamp = (params.start as Date).getTime();
+    var frquency = params.frequency as string;
 
-  close() {
-   // this.dialogRef.close();
+    var diffDays = Math.floor((new Date().getTime() - startStamp) / (1000 * 3600 * 24));
+
+    
   }
 }
 
-function IUser(arg0: any, IUser: any) {
-    throw new Error('Function not implemented.');
-}
