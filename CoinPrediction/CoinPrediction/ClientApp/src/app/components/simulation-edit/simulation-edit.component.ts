@@ -17,7 +17,7 @@ export class SimulationEditComponent implements OnInit {
     "1 minute",
   ];
   balance = 0;
-  maxDate = new Date(2022, 4, 18);
+  maxDate = new Date(2022, 3, 18);
   minDate = new Date(this.maxDate.getFullYear() - 5, 0, 1);
 
   constructor(private fb: FormBuilder,
@@ -46,8 +46,8 @@ export class SimulationEditComponent implements OnInit {
   submit(): void {
     var frequency;
     switch (this.frequency.value) {
-      case "1 hour": frequency = Frequency.HOURLY; break;
-      case "1 minute": frequency = Frequency.MINTUTELY; break;
+      case "1 hour": frequency = "hour"; break;
+      case "1 minute": frequency = "minute"; break;
     }
 
     var result = {

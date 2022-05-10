@@ -119,17 +119,21 @@ export class CoinComponent implements OnInit {
     const dialogRef = this.dialog.open(SimulationEditComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.runSimulation(result);
+      if(result)
+        this.runSimulation(result);
     },error => console.log(error))
   }
 
   runSimulation(params) {
-    var endStamp = (params.end as Date).getTime();
     var startStamp = (params.start as Date).getTime();
+    var endStamp = (params.end as Date).getTime();
     var frquency = params.frequency as string;
+    var inputMoney = params.inputMoney as number;
+    var trainTestSplit = params.trainTestSplit as number;
 
-    var diffDays = Math.floor((new Date().getTime() - startStamp) / (1000 * 3600 * 24));
-
+    this.coinPairService.runSimulation(startStamp, endStamp, frquency, inputMoney, trainTestSplit).subscribe(result => {
+      alert("Profit: " + result.profitUSDT);
+    });
     
   }
 }

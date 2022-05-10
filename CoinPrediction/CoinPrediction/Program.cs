@@ -1,6 +1,7 @@
 using CoinPrediction.DAL;
 using CoinPrediction.DAL.AutoMapper;
 using CoinPrediction.DAL.EfDbContext;
+using CoinPrediction.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,8 @@ builder.Services.AddAutoMapper(typeof(CryptoMarketProfile));
 builder.Services.AddScoped<ICoinRepository, CoinRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICoinPairRepository, CoinPairRepository>();
+builder.Services.AddScoped<IPricePredictorService, PricePredictorService>();
+builder.Services.AddScoped<IResultRepository, ResultRepository>();
 
 builder.Services.AddSwaggerGen();
 

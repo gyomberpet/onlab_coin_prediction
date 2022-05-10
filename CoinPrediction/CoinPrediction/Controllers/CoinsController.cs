@@ -16,25 +16,25 @@ namespace CoinPrediction.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Coin>> Get() 
+        public async Task<ActionResult<IEnumerable<Coin>>> Get() 
         {
-            var coins = coinRepository.GetCoins();
+            var coins = await coinRepository.GetCoins();
             return Ok(coins);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Coin> Get(int id)
+        public async Task<ActionResult<Coin>> Get(int id)
         {
-            var coins = coinRepository.GetCoinByID(id);
+            var coins = await coinRepository.GetCoinByID(id);
             return Ok(coins);
         }
 
         [HttpPost]
-        public ActionResult<Guid> Post([FromBody] Coin coin)
+        public async Task<ActionResult<int>> Post([FromBody] Coin coin)
         {
             try
             {
-                Coin created = coinRepository.InsertCoin(coin);
+                Coin created = await coinRepository.InsertCoin(coin);
                 if (created == null)
                     return BadRequest();
 
@@ -47,9 +47,9 @@ namespace CoinPrediction.Controllers
         }
 
         [HttpPut]
-        public ActionResult<Coin> Put([FromBody] Coin coin) 
+        public async Task<ActionResult<Coin>> Put([FromBody] Coin coin) 
         {
-            var updated = coinRepository.UpdateCoin(coin);
+            var updated = await coinRepository.UpdateCoin(coin);
             
             if(updated == null)
                 return NotFound();
@@ -61,9 +61,9 @@ namespace CoinPrediction.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id) 
+        public async Task<ActionResult> Delete(int id) 
         {
-            var isSuccess = coinRepository.DeleteCoin(id);
+            var isSuccess = await coinRepository.DeleteCoin(id);
 
             if (!isSuccess)
                 return NotFound();

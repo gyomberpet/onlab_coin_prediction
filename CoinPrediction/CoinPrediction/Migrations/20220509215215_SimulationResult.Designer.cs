@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoinPrediction.Migrations
 {
     [DbContext(typeof(CryptoMarketContext))]
-    [Migration("20220502223100_PairBTCUSDT")]
-    partial class PairBTCUSDT
+    [Migration("20220509215215_SimulationResult")]
+    partial class SimulationResult
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,7 +76,7 @@ namespace CoinPrediction.Migrations
                     b.Property<string>("Symbol")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TradeCount")
+                    b.Property<int?>("TradeCount")
                         .HasColumnType("int");
 
                     b.Property<double>("VolumeBTC")
@@ -128,6 +128,22 @@ namespace CoinPrediction.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BinanceMinuteBTCUSDT");
+                });
+
+            modelBuilder.Entity("CoinPrediction.DAL.EfDbContext.Entities.DbSimulationResult", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double>("ProfitUSDT")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SimulationResults");
                 });
 
             modelBuilder.Entity("CoinPrediction.DAL.EfDbContext.Entities.DbUser", b =>

@@ -74,7 +74,7 @@ namespace CoinPrediction.Migrations
                     b.Property<string>("Symbol")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TradeCount")
+                    b.Property<int?>("TradeCount")
                         .HasColumnType("int");
 
                     b.Property<double>("VolumeBTC")
@@ -126,6 +126,22 @@ namespace CoinPrediction.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BinanceMinuteBTCUSDT");
+                });
+
+            modelBuilder.Entity("CoinPrediction.DAL.EfDbContext.Entities.DbSimulationResult", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double>("ProfitUSDT")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SimulationResults");
                 });
 
             modelBuilder.Entity("CoinPrediction.DAL.EfDbContext.Entities.DbUser", b =>

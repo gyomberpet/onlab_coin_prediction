@@ -3,6 +3,8 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CoinPrediction.DAL.EfDbContext.Entities;
 using CoinPrediction.DAL.EfDbContext;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace CoinPrediction.DAL
 {
@@ -17,9 +19,9 @@ namespace CoinPrediction.DAL
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public bool DeleteCoin(int id)
+        public async Task<bool> DeleteCoin(int id)
         {
-            var dbCoinToDelete = context.Coins.SingleOrDefault(c => c.Id == id);
+            var dbCoinToDelete = await context.Coins.SingleOrDefaultAsync(c => c.Id == id);
 
             if (dbCoinToDelete == null)
                 return false;
@@ -30,43 +32,45 @@ namespace CoinPrediction.DAL
             return true;
         }
 
-        public Coin GetCoinByID(int id)
+        public async Task<Coin> GetCoinByID(int id)
         {
-            var dbCoin = context.Coins .SingleOrDefault(c => c.Id == id);
+            var dbCoin = await context.Coins.SingleOrDefaultAsync(c => c.Id == id);
 
             return mapper.Map<Coin>(dbCoin);
         }
 
-        public IEnumerable<Coin> GetCoins()
+        public async Task<IEnumerable<Coin>> GetCoins()
         {
-            var coins = context.Coins
-                .Select(mapper.Map<Coin>)
-                .AsEnumerable();
+            var coins = await context.Coins
+                .ProjectTo<Coin>(mapper.ConfigurationProvider)
+                .ToListAsync();
 
             return coins;
         }
 
-        public Coin InsertCoin(Coin coin)
+        public async Task<Coin> InsertCoin(Coin coin)
         {
-            var coinIds = GetCoins().Select(c => c.CoinId);
+            var coins = await GetCoins();
+            var coinIds = coins.Select(c => c.CoinId);
             if (coinIds.Contains(coin.CoinId))
                 return null;
 
             var dbCoin = mapper.Map<DbCoin>(coin);
-            context.Coins.Add(dbCoin);
+            await context.Coins.AddAsync(dbCoin);
             context.SaveChanges();
 
             return mapper.Map<Coin>(dbCoin);
         }
 
-        public Coin UpdateCoin(Coin coin)
+        public async Task<Coin> UpdateCoin(Coin coin)
         {   
-            var dbCoinToUpdate = context.Coins.SingleOrDefault(c => c.Id == coin.Id);
+            var dbCoinToUpdate = await context.Coins.SingleOrDefaultAsync(c => c.Id == coin.Id);
 
             if(dbCoinToUpdate == null)
                 return null;
 
-            var coinIds = GetCoins().Select(c => c.CoinId);
+            var coins = await GetCoins();
+            var coinIds = coins.Select(c => c.CoinId);
             if (coinIds.Contains(coin.CoinId) && coin.CoinId != dbCoinToUpdate.CoinId)
                 return coin;
 

@@ -13,6 +13,7 @@ namespace CoinPrediction.DAL.AutoMapper
             CreateMap<DbUserAsset, UserAsset>().ReverseMap();
             CreateMap<DbPairHourBTCUSDT, PairHourBTCUSDT>().ReverseMap();
             CreateMap<DbPairMinuteBTCUSDT, PairMinuteBTCUSDT>().ReverseMap();
+            CreateMap<DbSimulationResult, SimulationResult>().ReverseMap();
         }
     }
 }

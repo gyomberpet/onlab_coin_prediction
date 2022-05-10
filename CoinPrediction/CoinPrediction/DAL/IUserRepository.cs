@@ -4,11 +4,10 @@ namespace CoinPrediction.DAL
 {
     public interface IUserRepository: IDisposable
     {
-        IEnumerable<User> GetUsers();
-        User GetUserByID(int id);
-        User InsertUser(User coin);
-        bool DeleteUser(int id);
-        User AddAssetToUser(int id, UserAsset asset);
-      //  User UpdateUser(User coin);
+        Task<IEnumerable<User>> GetUsers();
+        Task<User> GetUserByID(int id);
+        Task<User> InsertUser(User coin);
+        Task<bool> DeleteUser(int id);
+        Task<User> AddAssetToUser(int id, UserAsset asset);
     }
 }

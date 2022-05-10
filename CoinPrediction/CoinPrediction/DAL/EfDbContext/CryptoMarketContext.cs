@@ -11,6 +11,7 @@ namespace CoinPrediction.DAL.EfDbContext
         public DbSet<DbUserAsset> UserAssets => Set<DbUserAsset>();
         public DbSet<DbPairHourBTCUSDT> BinanceHourBTCUSDT => Set<DbPairHourBTCUSDT>();
         public DbSet<DbPairMinuteBTCUSDT> BinanceMinuteBTCUSDT => Set<DbPairMinuteBTCUSDT>();
+        public DbSet<DbSimulationResult> SimulationResults => Set<DbSimulationResult>();
 
 
         public CryptoMarketContext(DbContextOptions options)

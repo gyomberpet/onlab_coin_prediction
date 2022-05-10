@@ -1,43 +1,30 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using CoinPrediction.DAL.EfDbContext;
+using CoinPrediction.DAL.EfDbContext.Entities;
 using CoinPrediction.Model;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.ML;
-using Microsoft.ML.Data;
-using Microsoft.ML.Trainers;
-using System.Data.SqlClient;
 
 namespace CoinPrediction.DAL
 {
-    public class CoinPairRepository : ICoinPairRepository, IDisposable
+    public class ResultRepository: IResultRepository, IDisposable
     {
         private readonly CryptoMarketContext context;
         private readonly IMapper mapper;
 
-        public CoinPairRepository(CryptoMarketContext context, IMapper mapper)
+        public ResultRepository(CryptoMarketContext context, IMapper mapper)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<IEnumerable<PairHourBTCUSDT>> GetBTCUSDTPairsHourly()
+
+        public async Task<SimulationResult> InsertResult(SimulationResult result) 
         {
-            
-            return await context.BinanceHourBTCUSDT
-                .ProjectTo<PairHourBTCUSDT>(mapper.ConfigurationProvider)
-                .Take(1000)
-                .ToListAsync();
+            var dbResult = mapper.Map<DbSimulationResult>(result);
+            await context.SimulationResults.AddAsync(dbResult);
+            context.SaveChanges();
+
+            return mapper.Map<SimulationResult>(dbResult);
         }
 
-        public async Task<IEnumerable<PairMinuteBTCUSDT>> GetBTCUSDTPairsMinutely()
-        {
-            return await context.BinanceMinuteBTCUSDT
-                .ProjectTo<PairMinuteBTCUSDT>(mapper.ConfigurationProvider)
-                .Take(1000)
-                .ToListAsync();
-        }
-
-        
         #region "Dispose"
 
         private bool disposed = false;

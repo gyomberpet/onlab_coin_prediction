@@ -4,8 +4,8 @@ namespace CoinPrediction.DAL
 {
     public interface ICoinPairRepository: IDisposable
     {
-        IEnumerable<PairHourBTCUSDT> GetBTCUSDTPairsHourly();
-        IEnumerable<PairMinuteBTCUSDT> GetBTCUSDTPairsMinutely();
+        Task<IEnumerable<PairHourBTCUSDT>> GetBTCUSDTPairsHourly();
+        Task<IEnumerable<PairMinuteBTCUSDT>> GetBTCUSDTPairsMinutely();
 
     }
 }

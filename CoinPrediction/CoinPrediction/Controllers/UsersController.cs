@@ -16,25 +16,25 @@ namespace CoinPrediction.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<User>> Get()
+        public async Task<ActionResult<IEnumerable<User>>> Get()
         {
-            var users = userRepository.GetUsers();
+            var users = await userRepository.GetUsers();
             return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<User> Get(int id)
+        public async Task<ActionResult<User>> Get(int id)
         {
-            var users = userRepository.GetUserByID(id);
+            var users = await userRepository.GetUserByID(id);
             return Ok(users);
         }
 
         [HttpPost]
-        public ActionResult<Guid> Post([FromBody] User user)
+        public async Task<ActionResult<Guid>> Post([FromBody] User user)
         {
             try
             {
-                User created = userRepository.InsertUser(user);
+                User created = await userRepository.InsertUser(user);
                 return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
             }
             catch (ArgumentException ex)
@@ -44,9 +44,9 @@ namespace CoinPrediction.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<User> AddAssetToUser(int id, [FromBody] UserAsset asset) 
+        public async Task<ActionResult<User>> AddAssetToUser(int id, [FromBody] UserAsset asset) 
         {
-            var user = userRepository.AddAssetToUser(id, asset);
+            var user = await userRepository.AddAssetToUser(id, asset);
 
             if (user == null)
                 return NotFound();
@@ -54,21 +54,10 @@ namespace CoinPrediction.Controllers
             return Ok(user);
         }
 
-        //[HttpPut]
-        //public ActionResult<User> Put([FromBody] User user)
-        //{
-        //    var updated = userRepository.UpdateUser(user);
-
-        //    if (updated == null)
-        //        return NotFound();
-
-        //    return Ok(updated);
-        //}
-
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var isSuccess = userRepository.DeleteUser(id);
+            var isSuccess = await userRepository.DeleteUser(id);
 
             if (!isSuccess)
                 return NotFound();
