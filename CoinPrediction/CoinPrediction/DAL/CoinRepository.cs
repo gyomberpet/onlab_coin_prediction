@@ -19,6 +19,11 @@ namespace CoinPrediction.DAL
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        /// <summary>
+        /// Delete the coin with the given id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteCoin(int id)
         {
             var dbCoinToDelete = await context.Coins.SingleOrDefaultAsync(c => c.Id == id);
@@ -32,6 +37,11 @@ namespace CoinPrediction.DAL
             return true;
         }
 
+        /// <summary>
+        /// Return the coin with the given id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Coin> GetCoinByID(int id)
         {
             var dbCoin = await context.Coins.SingleOrDefaultAsync(c => c.Id == id);
@@ -39,6 +49,10 @@ namespace CoinPrediction.DAL
             return mapper.Map<Coin>(dbCoin);
         }
 
+        /// <summary>
+        /// Return all the coins.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Coin>> GetCoins()
         {
             var coins = await context.Coins
@@ -48,6 +62,11 @@ namespace CoinPrediction.DAL
             return coins;
         }
 
+        /// <summary>
+        /// Insert a new coin if the coinId not exists.
+        /// </summary>
+        /// <param name="coin"></param>
+        /// <returns></returns>
         public async Task<Coin> InsertCoin(Coin coin)
         {
             var coins = await GetCoins();
@@ -62,6 +81,11 @@ namespace CoinPrediction.DAL
             return mapper.Map<Coin>(dbCoin);
         }
 
+        /// <summary>
+        /// Update the coin with the same id.
+        /// </summary>
+        /// <param name="coin"></param>
+        /// <returns></returns>
         public async Task<Coin> UpdateCoin(Coin coin)
         {   
             var dbCoinToUpdate = await context.Coins.SingleOrDefaultAsync(c => c.Id == coin.Id);

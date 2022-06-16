@@ -15,6 +15,10 @@ namespace CoinPrediction.Controllers
             this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
+        /// <summary>
+        /// Get all the users.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
@@ -22,6 +26,10 @@ namespace CoinPrediction.Controllers
             return Ok(users);
         }
 
+        /// <summary>
+        /// Get a user with the given id.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> Get(int id)
         {
@@ -29,6 +37,11 @@ namespace CoinPrediction.Controllers
             return Ok(users);
         }
 
+        /// <summary>
+        /// Create a new user.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Guid>> Post([FromBody] User user)
         {
@@ -43,6 +56,12 @@ namespace CoinPrediction.Controllers
             }
         }
 
+        /// <summary>
+        /// Add the given asset to the user.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="asset"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<ActionResult<User>> AddAssetToUser(int id, [FromBody] UserAsset asset) 
         {
@@ -54,6 +73,11 @@ namespace CoinPrediction.Controllers
             return Ok(user);
         }
 
+        /// <summary>
+        /// Delete a user with the given id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {

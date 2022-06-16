@@ -6,6 +6,9 @@ namespace CoinPrediction.DAL.AutoMapper
 {
     public class CryptoMarketProfile: Profile
     {
+        /// <summary>
+        /// Help mapping the Model-Entity objects.
+        /// </summary>
         public CryptoMarketProfile() 
         {
             CreateMap<DbCoin, Coin>().ReverseMap();

@@ -16,6 +16,11 @@ namespace CoinPrediction.DAL
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        /// <summary>
+        /// Insert a new simulation result to the db.
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
         public async Task<SimulationResult> InsertResult(SimulationResult result) 
         {
             var dbResult = mapper.Map<DbSimulationResult>(result);

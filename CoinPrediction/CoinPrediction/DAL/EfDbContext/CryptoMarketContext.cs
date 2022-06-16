@@ -26,18 +26,12 @@ namespace CoinPrediction.DAL.EfDbContext
             modelBuilder.Entity<DbCoin>()
                 .HasIndex(e => e.CoinId)
                 .IsUnique();
-
-
-            //modelBuilder.Entity<DbCoin>()             
-            //    .HasPartitionKey(c => c.Id);
-            //modelBuilder.Entity<DbCoin>()
-            //    .HasIndex(u => u.CoinId)
-            //    .IsUnique();
-
-            //modelBuilder.Entity<DbUser>()
-            //    .HasPartitionKey(u => u.Id);
         }
     }
+
+    /// <summary>
+    /// Help to create the connection to the db.
+    /// </summary>
     public class AppDbContextFactory : IDesignTimeDbContextFactory<CryptoMarketContext>
     {
         public CryptoMarketContext CreateDbContext(string[] args)

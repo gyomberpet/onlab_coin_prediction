@@ -14,6 +14,10 @@ export class CoinService {
     this.baseUrl = baseUrl;
   }
 
+  /**
+   * Return the coin with the given id.
+   * @param id
+   */
   public getCoinById(id: number): Observable<ICoin> {
     return this.httpClient.get<ICoin>(`${this.baseUrl}api/coins/${id}`);
   }

@@ -20,6 +20,10 @@ namespace CoinPrediction.Controllers
             _client = CoinGeckoClient.Instance;
         }
 
+        /// <summary>
+        /// Check if the state is available.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("ping")]
         public async Task<ActionResult<Ping>> Ping()
@@ -30,6 +34,12 @@ namespace CoinPrediction.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Get the information of the given coin.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="currency"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("coin/{id}/{currency}")]
         public async Task<ActionResult<CoinMarkets>> GetCoin(string id, string currency)
@@ -41,6 +51,12 @@ namespace CoinPrediction.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Return the coins in the market.
+        /// </summary>
+        /// <param name="currency"></param>
+        /// <param name="coins"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("coinmarkets/{currency}")]
         public async Task<ActionResult<List<CoinMarkets>>> GetMarkets(string currency, [FromBody] string[] coins)
@@ -52,6 +68,14 @@ namespace CoinPrediction.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Get the market chart data.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="currency"></param>
+        /// <param name="days"></param>
+        /// <param name="interval"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("marketchart/{id}/{currency}/{days}/{interval}")]
         public async Task<ActionResult<MarketChartById>> GetMarketChart(string id, string currency, string days, string interval)

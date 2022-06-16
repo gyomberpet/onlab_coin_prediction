@@ -37,6 +37,9 @@ export class CoinComponent implements OnInit {
   constructor(private coinGeckoService: CoinGeckoService, private route: ActivatedRoute,
     public dialog: MatDialog, private userService: UserService, private coinPairService: CoinPairService) { }
 
+  /**
+   * Download the coin's data and update the chart.
+   * */
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
     this.coinGeckoService.getCoin(this.id, Currency.USD).subscribe(result => {
@@ -45,6 +48,9 @@ export class CoinComponent implements OnInit {
     }, error => console.log(error));
   }
 
+  /**
+   * Convert the data to the prefered format.
+   * */
   private convertIMarketChartToINgxChartData(): INgxChartData[]
   {
     var series: ITimestampValuePair[] = []
@@ -64,6 +70,10 @@ export class CoinComponent implements OnInit {
     return result;
   }
 
+  /**
+   * Update the chart using the given interval.
+   * @param interval
+   */
   updateChart(interval: string)
   {
     this.interval = interval;
@@ -81,6 +91,10 @@ export class CoinComponent implements OnInit {
     }, error => console.log(error));
   }
 
+  /**
+   * Format the given timeStamp to the right date format.
+   * @param timeStamp
+   */
   formatDate(timeStamp: any): string {
     var date = new Date(timeStamp);
     var result: string;
@@ -92,6 +106,10 @@ export class CoinComponent implements OnInit {
     return result;
   }
 
+  /**
+   * Return the name of the month for the given index.
+   * @param num
+   */
   getMonth(num: number)
   {
     const month = [
@@ -112,6 +130,10 @@ export class CoinComponent implements OnInit {
     return month[num];
   }
 
+
+  /**
+   * Open a simulation dialog.
+   * */
   openSimulationEditDialog() {
     var dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
@@ -124,6 +146,11 @@ export class CoinComponent implements OnInit {
     },error => console.log(error))
   }
 
+  /**
+   * Run a simulation with the given params.
+   * Show the result.
+   * @param params
+   */
   runSimulation(params) {
     var startStamp = (params.start as Date).getTime();
     var endStamp = (params.end as Date).getTime();

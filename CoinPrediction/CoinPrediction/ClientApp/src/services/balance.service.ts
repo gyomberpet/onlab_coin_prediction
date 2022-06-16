@@ -14,6 +14,10 @@ export class BalanceService {
 
   constructor(private userService: UserService, private coinGeckoService: CoinGeckoService) { }
 
+  /**
+   * Get the actual balance from the db for the given user. 
+   * @param userId
+   */
   public getBalance(userId: number): Observable<number> {
     const obs = new Observable<number>(observable => {
       this.userService.getUserById(userId).subscribe(result => {
@@ -28,6 +32,11 @@ export class BalanceService {
     return obs;
   }
 
+  /**
+   * Calculate the current balance with the actual market prices.
+   * @param user
+   * @param markets
+   */
   private calculateBalance(user: IUser, markets: ICoinMarket[]): number {
     var balance = 0;
     user.userAssets.forEach(asset => {

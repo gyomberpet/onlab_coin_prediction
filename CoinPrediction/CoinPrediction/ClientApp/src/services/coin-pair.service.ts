@@ -15,10 +15,23 @@ export class CoinPairService {
     this.baseUrl = baseUrl;
   }
 
-  public getCoinPairsHourly(coinSymbol: string, frquency: Frequency): Observable<IPairBTCUSDT> {
+  /**
+   * Get the coin pairs for the given symbol in the given frequency.
+   * @param coinSymbol
+   * @param frquency
+   */
+  public getCoinPairs(coinSymbol: string, frquency: Frequency): Observable<IPairBTCUSDT> {
     return this.httpClient.get<IPairBTCUSDT>(`${this.baseUrl}api/coinpairs/${coinSymbol}/${frquency}`);
   }
 
+  /**
+   * Run the simulation with the given parameter options.
+   * @param startStamp
+   * @param endStamp
+   * @param frequency
+   * @param inputMoney
+   * @param trainTestSplit
+   */
   public runSimulation(startStamp: number, endStamp: number, frequency: string, inputMoney: number, trainTestSplit: number): Observable<ISimulationResult> {
     return this.httpClient.get<ISimulationResult>(`${this.baseUrl}api/coinpairs/simulate`, {
       params: new HttpParams()

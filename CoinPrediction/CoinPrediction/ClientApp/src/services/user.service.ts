@@ -15,14 +15,27 @@ export class UserService {
     this.baseUrl = baseUrl;
   }
 
+  /**
+   * Get a user with the given id.
+   * @param id
+   */
   public getUserById(id: number): Observable<IUser> {
     return this.httpClient.get<IUser>(`${this.baseUrl}api/users/${id}`);
   }
 
+  /**
+   * Insert a new user to the db.
+   * @param user
+   */
   public insertUser(user: IUser): Observable<IUser> {
     return this.httpClient.post<IUser>(`${this.baseUrl}api/users`, user);
   }
 
+  /**
+   * Add the given asset to the user.
+   * @param userId
+   * @param asset
+   */
   public addAssetToUser(userId: number, asset: IUserAsset): Observable<IUser> {
     return this.httpClient.put<IUser>(`${this.baseUrl}api/users/${userId}`, asset);
   }

@@ -26,12 +26,19 @@ export class AccountComponent implements OnInit {
   constructor(private fb: FormBuilder, private userService: UserService,
     private coinGeckoService: CoinGeckoService, private balanceService: BalanceService) { }
 
+  /**
+   * Build the form.
+   */
   ngOnInit() {
     this.firstFormGroup = this.fb.group({
       inputMoney: ['', Validators.required],
     });
   }
 
+  /**
+   * Add the given value to the user's balance.
+   * @param value
+   */
   depositConfirm(value: number) {
     this.userService.addAssetToUser(this.userId, {
       coin: {

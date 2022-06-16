@@ -18,6 +18,11 @@ namespace CoinPrediction.DAL
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        /// <summary>
+        /// Delete the user with the given id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteUser(int id)
         {
             var dbUserToDelete = await context.Users.SingleOrDefaultAsync(u => u.Id == id);
@@ -31,6 +36,11 @@ namespace CoinPrediction.DAL
             return true;
         }
 
+        /// <summary>
+        /// Return the user with the given id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<User> GetUserByID(int id)
         {
             var dbUser = await context.Users
@@ -41,6 +51,10 @@ namespace CoinPrediction.DAL
             return mapper.Map<User>(dbUser);
         }
         
+        /// <summary>
+        /// Returns all the users.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<User>> GetUsers()
         {
             var users = await context.Users
@@ -50,6 +64,11 @@ namespace CoinPrediction.DAL
             return users;
         }
 
+        /// <summary>
+        /// Insert a new user to the db with an empty wallet.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public async Task<User> InsertUser(User user)
         {
             var dbUser = mapper.Map<DbUser>(user);
@@ -61,6 +80,12 @@ namespace CoinPrediction.DAL
             return mapper.Map<User>(dbUser);
         }
 
+        /// <summary>
+        /// Add the given asset to the user.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="asset"></param>
+        /// <returns></returns>
         public async Task<User> AddAssetToUser(int id, UserAsset asset) 
         {
             var dbUser = await context.Users.SingleOrDefaultAsync(u => u.Id == id);

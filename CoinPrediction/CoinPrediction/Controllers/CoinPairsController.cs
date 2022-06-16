@@ -22,6 +22,10 @@ namespace CoinPrediction.Controllers
             this.resultRepository = resultRepository ?? throw new ArgumentNullException(nameof(resultRepository));
         }
 
+        /// <summary>
+        /// Get some of the BTC/USDT pairs hourly.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("btc/hourly")]
         public async Task<ActionResult<IEnumerable<PairHourBTCUSDT>>> GetBTCUSDTPairsHourly()
@@ -30,6 +34,10 @@ namespace CoinPrediction.Controllers
             return Ok(pairs);
         }
 
+        /// <summary>
+        /// Get some of the BTC/USDT pairs minutely.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("btc/minutely")]
         public async Task<ActionResult<IEnumerable<PairMinuteBTCUSDT>>> GetBTCUSDTPairsMinutely()
@@ -38,6 +46,11 @@ namespace CoinPrediction.Controllers
             return Ok(pairs);
         }
 
+        /// <summary>
+        /// Run a simulation and store the result in the db.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("simulate")]
         public async Task<ActionResult<SimulationResult>> RunSimulation([FromQuery] SimulationParams parameters) 

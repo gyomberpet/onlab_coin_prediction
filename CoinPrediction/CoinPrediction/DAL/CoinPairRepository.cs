@@ -20,6 +20,11 @@ namespace CoinPrediction.DAL
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
+
+        /// <summary>
+        /// Return the top 1000 BTC/USDT pairs hourly.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<PairHourBTCUSDT>> GetBTCUSDTPairsHourly()
         {
             
@@ -29,6 +34,10 @@ namespace CoinPrediction.DAL
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Return the top 1000 BTC/USDT pairs minutely.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<PairMinuteBTCUSDT>> GetBTCUSDTPairsMinutely()
         {
             return await context.BinanceMinuteBTCUSDT

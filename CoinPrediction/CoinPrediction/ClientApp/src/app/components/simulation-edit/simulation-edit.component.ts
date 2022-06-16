@@ -26,6 +26,9 @@ export class SimulationEditComponent implements OnInit {
     private balanceService: BalanceService
   ) { }
 
+  /**
+   * Get the balance and build the form.
+   * */
   ngOnInit(): void {
     this.form = this.fb.group({
       range: this.fb.group({
@@ -43,6 +46,9 @@ export class SimulationEditComponent implements OnInit {
     );
   }
 
+  /**
+   * Close the dialog with the submitted parameters.
+   * */
   submit(): void {
     var frequency;
     switch (this.frequency.value) {

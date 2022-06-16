@@ -25,6 +25,14 @@ namespace CoinPrediction.Services
             psi.RedirectStandardError = true;
         }
 
+        /// <summary>
+        /// Start a new process and run a python script.
+        /// Inside the script, train a model with the given parameters and return the result.
+        /// Process the predictions and make orders using the predictions.
+        /// Evaluate, and return the final result of the simulation.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public SimulationResult PredictBTCUSDT(SimulationParams parameters) 
         {
             var result = TrainModelAndGetPredictionResults(parameters);

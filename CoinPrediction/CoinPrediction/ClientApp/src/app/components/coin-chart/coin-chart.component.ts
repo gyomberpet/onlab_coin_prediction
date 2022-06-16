@@ -29,6 +29,9 @@ export class CoinChartComponent implements OnChanges {
 
   constructor() { }
 
+  /**
+   * Set the scaling parameters.
+   * */
   ngOnChanges(): void {
     if (!this.data) return;
 
@@ -39,17 +42,11 @@ export class CoinChartComponent implements OnChanges {
     this.yScaleMin = minPrice - (maxPrice - minPrice) * 0.25;
   }
 
-  onSelect(data: any): void {
-    // console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
+  onSelect(data: any): void {}
 
-  onActivate(data: any): void {
-    // console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
+  onActivate(data: any): void {}
 
-  onDeactivate(data: any): void {
-    // console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
+  onDeactivate(data: any): void {}
 
   
 

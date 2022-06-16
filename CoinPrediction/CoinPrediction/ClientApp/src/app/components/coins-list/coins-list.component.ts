@@ -21,15 +21,25 @@ export class CoinsListComponent implements OnInit, AfterViewInit {
 
   constructor(private coinGeckoService: CoinGeckoService) { }
 
+  /**
+   * Set the sort property.
+   * */
   ngAfterViewInit(): void {
     this.coins.data = [];
     this.coins.sort = this.sort;
   }
 
+  /**
+   * Get the coins.
+   * */
   ngOnInit() {
     this.getCoins(this.selectedCurrencyType);
   }
 
+  /**
+   * Download the list of coins with the given currency.
+   * @param currency
+   */
   private getCoins(currency: string) {
     this.coinGeckoService.getMarkets(currency).subscribe(result => {
       this.coins.data = result;
