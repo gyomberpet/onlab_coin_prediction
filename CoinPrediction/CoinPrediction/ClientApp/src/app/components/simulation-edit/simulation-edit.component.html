@@ -1,0 +1,66 @@
+<h3 mat-dialog-title>Create Simulation</h3>
+<div [formGroup]="form">
+  <div mat-dialog-content>
+    <div class="container">
+      <div>
+        <p>Select the simulation interval</p>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input formGroupName="range" [min]="minDate" [max]="maxDate" [rangePicker]="picker">
+            <input matStartDate formControlName="start"  placeholder="Start date">
+            <input matEndDate formControlName="end" placeholder="End date">
+          </mat-date-range-input>
+          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+
+          <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+          <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <p>Frequency</p>
+        <mat-form-field appearance="fill" [style.width.px]=150>
+          <mat-label>Frequency</mat-label>
+          <mat-select formControlName="frequency">
+            <mat-option *ngFor="let interval of intervals" [value]="interval">
+              {{interval}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <p>Train-test split</p>
+        <div class="train-test-group">
+          <section>
+            <mat-form-field appearance="fill" [style.width.px]=70>
+              <mat-label>%</mat-label>
+              <input matInput type="number" class="train-test-input" formControlName="trainTestSplit" min=5 max=95 step="5" placeholder="0">
+            </mat-form-field>
+          </section>
+          <mat-slider class="example-margin"
+                      max="95"
+                      min="5"
+                      step="5"
+                      thumbLabel="true"
+                      [displayWith]="formatLabel"
+                      [value]="trainTestSplit.value"
+                      (change)="trainTestSplit.setValue($event.value)">
+          </mat-slider>
+        </div>
+      </div>
+      <div class="money-selection">
+        <p>Input money - USD</p>
+        <mat-form-field appearance="fill" [style.width.px]=150>
+          <mat-label>Input money</mat-label>
+          <input matInput type="number" step="10" formControlName="inputMoney" class="money-amount-input" min="0">
+          <mat-hint align="start"><strong>{{balance | number : '1.2-2'}} USD</strong> </mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" [disabled]="form.invalid" mat-dialog-close (click)="submit()">Start</button>
+  </div>
+</div>

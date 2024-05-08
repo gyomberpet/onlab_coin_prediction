@@ -1,0 +1,53 @@
+<table mat-table [dataSource]="coins" matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="marketCapRank">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+    <td mat-cell *matCellDef="let element"> {{element.marketCapRank}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="image">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element"> <img [src]="element.image" /> </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+    <td mat-cell *matCellDef="let element" class="coin-name"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="symbol">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element" class="coin-symbol"> {{element.symbol | uppercase}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef class="header-align-right"> Price </th>
+    <td mat-cell *matCellDef="let element" class="align-right"> {{element.currentPrice}} {{selectedCurrencyType | uppercase}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="1h">
+    <th mat-header-cell *matHeaderCellDef class="header-align-right"> 1h </th>
+    <td mat-cell *matCellDef="let element"
+        [ngClass]="{'positive': element.priceChangePercentage1HInCurrency >= 0, 'negative' : element.priceChangePercentage1HInCurrency < 0}">
+      {{element.priceChangePercentage1HInCurrency | number : '1.2-2'}}%
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="24h">
+    <th mat-header-cell *matHeaderCellDef class="header-align-right"> 24h </th>
+    <td mat-cell *matCellDef="let element"
+        [ngClass]="{'positive': element.priceChangePercentage24HInCurrency >= 0, 'negative' : element.priceChangePercentage24HInCurrency < 0}">
+      {{element.priceChangePercentage24HInCurrency | number : '1.2-2'}}%
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="7d">
+    <th mat-header-cell *matHeaderCellDef class="header-align-right"> 7d </th>
+    <td mat-cell *matCellDef="let element"
+        [ngClass]="{'positive': element.priceChangePercentage7DInCurrency >= 0, 'negative' : element.priceChangePercentage7DInCurrency < 0}">
+      {{element.priceChangePercentage7DInCurrency | number : '1.2-2'}}%
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/coin', row.id]"></tr>
+</table>

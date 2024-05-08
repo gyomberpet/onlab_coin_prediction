@@ -1,0 +1,19 @@
+<h1>{{ coin.name }}</h1>
+<div>
+  <div class="interval-toggle">
+    <mat-button-toggle-group [(ngModel)]="interval" (change)="updateChart(interval)">
+      <mat-button-toggle value="1">24h</mat-button-toggle>
+      <mat-button-toggle value="7">7d</mat-button-toggle>
+      <mat-button-toggle value="14">14d</mat-button-toggle>
+      <mat-button-toggle value="30">30d</mat-button-toggle>
+      <mat-button-toggle value="90">90d</mat-button-toggle>
+      <mat-button-toggle value="180">180d</mat-button-toggle>
+      <mat-button-toggle value="365">1y</mat-button-toggle>
+      <mat-button-toggle value="Max">Max</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div>
+    <app-coin-chart [data]="dataSource"></app-coin-chart>
+  </div>
+</div>
+<button mat-raised-button color="primary" (click)="openSimulationEditDialog()">Simulate</button>
